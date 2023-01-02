@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'authentication',
     'home',
-    'address',
+    'collection',
 
     # Debug Toolbar
     'debug_toolbar',

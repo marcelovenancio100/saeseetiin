@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('authentication.urls')),
     path('home/', include('home.urls')),
     path('collection/', include('collection.urls')),
+    path('item/', include('item.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Debug Toolbar

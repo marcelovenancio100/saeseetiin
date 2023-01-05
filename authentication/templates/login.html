@@ -2,30 +2,73 @@
 {% load bootstrap4 %}
 
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login</title>
+  <head>
+    {% include 'partials/_head.html '%}
+    <title>AdminLTE 3 | Log in (v2)</title>
+  </head>
 
-    {% bootstrap_css %}
-</head>
-<body>
-
-<div class="container mt-5">
+  <body class="hold-transition login-page">
     {% bootstrap_messages %}
 
-    <h3>Login</h3>
+    <div class="login-box">
+      <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+          <a href="#" class="h1"><b>vNx</b> Sammlung</a>
+        </div>
+        <div class="card-body">
+          <p class="login-box-msg">Digite seus dados para acessar o sistema</p>
 
-    <form action="{% url 'authentication:login' %}" method="post" class="form">
-        {% csrf_token %}
-        {% bootstrap_form form %}
+          <form action="{% url 'authentication:login' %}" method="post">
+            {% csrf_token %}
 
-        {% buttons %}
-          <button type="submit" class="btn btn-primary btn-block btn-lg">Entrar</button>
-        {% endbuttons %}
-    </form>
-</div>
+            <div class="input-group mb-3">
+              <input type="text" id="username" name="username" class="form-control" placeholder="Usuário">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input type="password" id="password" name="password" class="form-control" placeholder="Senha">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-8">
+                <div class="icheck-primary">
+                  <input type="checkbox" id="remember">
+                  <label for="remember">Lembrar-me</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+              </div>
+            </div>
+          </form>
 
-{% bootstrap_javascript jquery='full' %}
-</body>
+          <div class="social-auth-links text-center mt-2 mb-3">
+            <a href="#" class="btn btn-block btn-primary">
+              <i class="fab fa-facebook mr-2"></i> Entrar com Facebook
+            </a>
+            <a href="#" class="btn btn-block btn-danger">
+              <i class="fab fa-google-plus mr-2"></i> Entrar com Google+
+            </a>
+          </div>
+
+          <p class="mb-1">
+            <a href="forgot-password.html">Esqueci a senha</a>
+          </p>
+          <p class="mb-0">
+            <a href="register.html" class="text-center">Registrar novo usuário</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {% bootstrap_javascript jquery='full' %}
+  </body>
 </html>

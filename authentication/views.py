@@ -3,16 +3,11 @@ from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
-from .forms import LoginForm
-
 
 class Login(View):
     def get(self, *args, **kwargs):
         template_name = 'login.html'
-        form = LoginForm()
-        context = {
-            'form': form
-        }
+        context = {}
 
         return render(self.request, template_name, context)
 

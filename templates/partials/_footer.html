@@ -1,20 +1,13 @@
-<!--{% load bootstrap4 %}-->
+{% load bootstrap4 %}
+{% load static %}
 
-<footer class="container-fluid bg-primary">
-    <div class="container text-light">
-        <div class="row">
-            <div class="col">
-                <div class="p-1">
-                    <span class="align-middle p-1">Made with Django</span>
-                </div>
-            </div>
-            <div class="col">
-                <div class="p-1 text-right">
-                    <span class="align-middle p-1">By vNx Software</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<footer class="main-footer">
+  <div class="float-right d-none d-sm-inline">
+    versão 1.0.0
+  </div>
+  <strong>Copyright &copy; 2022-2023 <a href="#">vNx</a>.</strong> Todos os direitos reservados.
 </footer>
 
 {% bootstrap_javascript jquery='full' %}
+
+<script src="{% static 'js/adminlte.min.js' %}"></script>

@@ -4,6 +4,7 @@
 <html lang="pt-br">
 <head>
     {% include 'partials/_head.html '%}
+    <title>vNx Sammlung | {% block title %}{% endblock %}</title>
 </head>
 
 <body>
@@ -11,10 +12,8 @@
     {% include 'partials/_navbar.html' %}
     {% include 'partials/_sidebar.html' %}
 
-    <main class="container mt-4 mb-4">
-        {% bootstrap_messages %}
-        {% block contents %}{% endblock %}
-    </main>
+    {% bootstrap_messages %}
+    {% block contents %}{% endblock %}
 
     {% include 'partials/_footer.html' %}
 </body>

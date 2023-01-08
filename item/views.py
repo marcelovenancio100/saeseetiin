@@ -21,3 +21,7 @@ class Search(DispatchLoginRequiredMixin, ListView):
 
 class Detail(DispatchLoginRequiredMixin, DetailView):
     pass
+
+
+class Delete(DispatchLoginRequiredMixin, DetailView):
+    pass

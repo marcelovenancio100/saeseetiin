@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'authentication',
     'home',
     'collection',
+    'group',
+    'situation',
     'item',
 
     # Debug Toolbar

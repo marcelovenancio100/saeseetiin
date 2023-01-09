@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
 from django.views import View
+from django.contrib.auth.models import User
 
 
 class DispatchLoginRequiredMixin(View):

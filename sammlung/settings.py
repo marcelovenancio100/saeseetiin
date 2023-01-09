@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'authentication',
+    'user',
     'home',
-    'collection',
     'group',
     'situation',
+    'collection',
     'item',
 
     # Debug Toolbar
@@ -145,6 +146,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SESSION_COOKIE_AGE = 60 * 30
+SESSION_SAVE_EVERY_REQUEST = False
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 INTERNAL_IPS = [
     '127.0.0.1',

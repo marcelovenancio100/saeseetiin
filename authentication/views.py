@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import ListView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+
+from utils.menu_data import MENU_ITEMS
 
 
 class Login(View):
@@ -26,6 +29,10 @@ class Login(View):
             return redirect('authentication:login')
 
         login(self.request, user=usuario)
+
+        self.request.session['menu_items'] = MENU_ITEMS
+        self.request.session.save()
+
         return redirect('home:home')
 
 

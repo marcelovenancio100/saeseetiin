@@ -29,42 +29,27 @@
 
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" role="menu" data-accordion="false">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'home:home' %}">
-            <i class="nav-icon fa-solid fa-store fa"></i>
-            <p>Home</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="nav-icon fa-solid fa-user-tie fa"></i>
-            <p>Usuario</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'group:list' %}">
-            <i class="nav-icon fa-solid fa-layer-group fa"></i>
-            <p>Grupo</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'situation:list' %}">
-            <i class="nav-icon fa-solid fa-chart-line fa"></i>
-            <p>Situação</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'collection:list' %}">
-            <i class="nav-icon fa-solid fa-th fa"></i>
-            <p>Coleção</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'item:list' %}">
-            <i class="nav-icon fa-solid fa-gamepad fa"></i>
-            <p>Item da Coleção</p>
-          </a>
-        </li>
+        {% for key, values in request.session.menu_items.items %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% if values.route %}{% url values.route %}{% else %}#{% endif %}">
+              <i class="nav-icon {{ values.icon }}"></i>
+              <p>{{ values.name }}{% if values.childrens %}<i class="fas fa-angle-left right"></i>{% endif %}</p>
+            </a>
+
+            {% if values.childrens %}
+              <ul class="nav nav-treeview ml-3">
+                {% for children in values.childrens %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url children.route %}">
+                      <i class="nav-icon {{ children.icon }}"></i>
+                      <p>{{ children.name }}</p>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
       </ul>
     </nav>
   </div>

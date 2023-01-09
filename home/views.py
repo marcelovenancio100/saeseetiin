@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views import View
 
+from utils.menu_data import MENU_ITEMS
+
 
 class DispatchLoginRequiredMixin(View):
     def dispatch(self, *args, **kwargs):

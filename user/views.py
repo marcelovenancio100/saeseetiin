@@ -16,7 +16,7 @@ class List(DispatchLoginRequiredMixin, ListView):
     pass
 
 
-class Search(DispatchLoginRequiredMixin, ListView):
+class Search(List):
     pass
 
 

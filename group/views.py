@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
 from django.views import View
+from django.db.models import Q
 
 from .models import Group
 
@@ -21,8 +22,19 @@ class List(DispatchLoginRequiredMixin, ListView):
     ordering = ['-id']
 
 
-class Search(DispatchLoginRequiredMixin, ListView):
-    pass
+class Search(List):
+    def get_queryset(self, *args, **kwargs):
+        filter = self.request.GET.get('filter')
+        qs = super().get_queryset(*args, **kwargs)
+
+        if not filter:
+            return qs
+
+        self.request.session['filter'] = filter
+        self.request.session.save()
+
+        qs = qs.filter(Q(code__icontains=filter) | Q(name__icontains=filter) | Q(description__icontains=filter))
+        return qs
 
 
 class New(DispatchLoginRequiredMixin, View):

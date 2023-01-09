@@ -1,0 +1,8 @@
+body {
+    line-height: 1.3 !important;
+    font-size: 0.9rem !important;
+}
+
+.table td {
+    border-top: none !important;
+}

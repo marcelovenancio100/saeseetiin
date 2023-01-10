@@ -1,9 +1,10 @@
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views import View
 from django.db.models import Q
 
 from .models import Group
+from .forms import FormGroup
 
 
 class DispatchLoginRequiredMixin(View):
@@ -38,7 +39,21 @@ class Search(List):
 
 
 class New(DispatchLoginRequiredMixin, View):
-    pass
+    template_name = 'group_new.html'
+
+    def get(self, *args, **kwargs):
+        form = FormGroup()
+        context = {
+            'form': form
+        }
+
+        return render(self.request, self.template_name, context)
+
+    def post(self, *args, **kwargs):
+        form = FormGroup(self.request)
+
+        if form.is_valid():
+            print(form)
 
 
 class Detail(DispatchLoginRequiredMixin, DetailView):

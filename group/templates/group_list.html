@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
 
 {% block title %}Listar Grupos{% endblock %}
 {% block screenname %}Grupos{% endblock %}
@@ -7,7 +8,10 @@
 {% block contents %}
   <div class="card card-outline card-primary">
     <div class="card-header">
-      <h3 class="card-title">Lista de Grupos</h3>
+      <h3 class="card-title">
+        <strong>Lista de Grupos</strong>
+        <small>(Exibindo {{ page_obj.start_index }}-{{ page_obj.end_index }} de {{ page_obj.paginator.count }})</small>
+      </h3>
 
       <div class="card-tools">
         <form method="GET" action="{% url 'group:search' %}">
@@ -15,9 +19,12 @@
             <input type="text" name="filter" value="{{ request.GET.filter }}" class="form-control float-right" placeholder="Pesquisar">
 
             <div class="input-group-append">
-              <button type="submit" class="btn btn-default">
+              <button type="submit" class="btn btn-default" title="Pesquisar">
                 <i class="fas fa-search"></i>
               </button>
+              <a href="{% url 'group:list' %}" class="btn btn-default" title="Limpar Pesquisa">
+                <i class="fas fa-ban"></i>
+              </a>
             </div>
           </div>
         </form>
@@ -39,7 +46,7 @@
         <tbody>
           {% for group in groups %}
           <tr>
-            <td>{{ page_obj.end_index }} + {{ forloop.counter }}</td>
+            <td>{{ page_obj.start_index|add:forloop.counter0 }}</td>
             <td>{{ group.code }}</td>
             <td>{{ group.name }}</td>
             <td>{{ group.description }}</td>

@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views import View
 from django.db.models import Q
+from django.contrib import messages
 
 from .models import Group
-from .forms import FormGroup
+from .forms import GroupForm
 
 
 class DispatchLoginRequiredMixin(View):
@@ -31,9 +32,6 @@ class Search(List):
         if not filter:
             return qs
 
-        self.request.session['filter'] = filter
-        self.request.session.save()
-
         qs = qs.filter(Q(code__icontains=filter) | Q(name__icontains=filter) | Q(description__icontains=filter))
         return qs
 
@@ -42,7 +40,7 @@ class New(DispatchLoginRequiredMixin, View):
     template_name = 'group_new.html'
 
     def get(self, *args, **kwargs):
-        form = FormGroup()
+        form = GroupForm()
         context = {
             'form': form
         }
@@ -50,10 +48,18 @@ class New(DispatchLoginRequiredMixin, View):
         return render(self.request, self.template_name, context)
 
     def post(self, *args, **kwargs):
-        form = FormGroup(self.request)
+        form = GroupForm(self.request.POST)
 
-        if form.is_valid():
-            print(form)
+        if not form.is_valid():
+            messages.error(self.request, 'Alguns problemas foram encontrados em seu cadastro. '
+                                         'Verifique os campos e tente novamente.')
+            return render(self.request, self.template_name, {'form': form})
+
+        group = Group(**form.cleaned_data)
+        group.save()
+
+        messages.success(self.request, 'Grupo salvo com sucesso.')
+        return redirect('group:list')
 
 
 class Detail(DispatchLoginRequiredMixin, DetailView):

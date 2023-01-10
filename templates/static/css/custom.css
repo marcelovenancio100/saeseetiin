@@ -6,3 +6,10 @@ body {
 .table td {
     border-top: none !important;
 }
+
+.custom-msg {
+    position: fixed;
+    bottom: 5px;
+    right: 1%;
+    width: 15%;
+}

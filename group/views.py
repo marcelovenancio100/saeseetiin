@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 from django.views import View
 from django.db.models import Q
 from django.contrib import messages
+from django.urls import reverse_lazy
 
 from .models import Group
 from .forms import GroupForm
@@ -66,5 +67,6 @@ class Detail(DispatchLoginRequiredMixin, DetailView):
     pass
 
 
-class Delete(DispatchLoginRequiredMixin, View):
-    pass
+class Delete(DispatchLoginRequiredMixin, DeleteView):
+    model = Group
+    success_url = reverse_lazy('group:list')

@@ -1,0 +1,26 @@
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="form-delete" method="POST">
+                {% csrf_token %}
+
+                <div class="modal-header">
+                    <h4>Confirmação de Exclusão</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja prosseguir com a exclusão do registro?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="delete" class="btn btn-danger">Excluir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#confirm-delete').on('show.bs.modal', function(e) {
+        $('#form-delete').attr('action', $(e.relatedTarget).data('href'));
+    });
+</script>

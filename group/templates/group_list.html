@@ -51,8 +51,19 @@
             <td>{{ group.name }}</td>
             <td>{{ group.description }}</td>
             <td class="text-right" style="width: 90px;">
-              <a href="{% url 'group:detail' group.id %}" class="text-secondary" title="Editar"><i class="fas fa-pen"></i></a>&nbsp;&nbsp;&nbsp;
-              <a href="{% url 'group:delete' group.id %}" class="text-secondary" title="Excluir"><i class="fas fa-trash"></i></a>
+              <a href="{% url 'group:detail' group.id %}"
+                 class="text-secondary"
+                 title="Editar">
+                <i class="fas fa-pen"></i>
+              </a>&nbsp&nbsp&nbsp
+              <a href="#"
+                 data-href="{% url 'group:delete' group.id %}"
+                 data-toggle="modal"
+                 data-target="#confirm-delete"
+                 class="text-secondary"
+                 title="Excluir">
+                <i class="fas fa-trash"></i>
+              </a>
             </td>
           </tr>
           {% endfor %}
@@ -64,4 +75,6 @@
       {% include 'partials/_pagination.html' %}
     </div>
   </div>
+
+  {% include 'partials/_confirmdel.html' %}
 {% endblock %}

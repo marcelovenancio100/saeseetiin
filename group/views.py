@@ -1,23 +1,15 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, DeleteView
-from django.views import View
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Q
-from django.contrib import messages
 from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Group
 from .forms import GroupForm
+from mixins.custom_mixins import LoginRequiredMixinCustom
 
 
-class DispatchLoginRequiredMixin(View):
-    def dispatch(self, *args, **kwargs):
-        if not self.request.user.is_authenticated:
-            return redirect('authentication:login')
-
-        return super().dispatch(*args, **kwargs)
-
-
-class List(DispatchLoginRequiredMixin, ListView):
+class List(LoginRequiredMixinCustom, ListView):
     template_name = 'group_list.html'
     model = Group
     context_object_name = 'groups'
@@ -37,36 +29,22 @@ class Search(List):
         return qs
 
 
-class New(DispatchLoginRequiredMixin, View):
-    template_name = 'group_new.html'
-
-    def get(self, *args, **kwargs):
-        form = GroupForm()
-        context = {
-            'form': form
-        }
-
-        return render(self.request, self.template_name, context)
-
-    def post(self, *args, **kwargs):
-        form = GroupForm(self.request.POST)
-
-        if not form.is_valid():
-            messages.error(self.request, 'Alguns problemas foram encontrados em seu cadastro. '
-                                         'Verifique os campos e tente novamente.')
-            return render(self.request, self.template_name, {'form': form})
-
-        group = Group(**form.cleaned_data)
-        group.save()
-
-        messages.success(self.request, 'Grupo salvo com sucesso.')
-        return redirect('group:list')
+class Create(LoginRequiredMixinCustom, SuccessMessageMixin, CreateView):
+    template_name = 'group_form.html'
+    form_class = GroupForm
+    success_url = reverse_lazy('group:list')
+    success_message = 'Grupo criado com sucesso.'
 
 
-class Detail(DispatchLoginRequiredMixin, DetailView):
-    pass
+class Update(LoginRequiredMixinCustom, SuccessMessageMixin, UpdateView):
+    template_name = 'group_form.html'
+    model = Group
+    fields = ['code', 'name', 'description']
+    success_url = reverse_lazy('group:list')
+    success_message = 'Grupo atualizado com sucesso.'
 
 
-class Delete(DispatchLoginRequiredMixin, DeleteView):
+class Delete(LoginRequiredMixinCustom, SuccessMessageMixin, DeleteView):
     model = Group
     success_url = reverse_lazy('group:list')
+    success_message = 'Grupo excluído com sucesso.'

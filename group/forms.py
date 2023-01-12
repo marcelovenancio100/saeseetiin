@@ -6,4 +6,4 @@ from .models import Group
 class GroupForm(ModelForm):
     class Meta:
         model = Group
-        fields = ('code', 'name', 'description')
+        fields = '__all__'

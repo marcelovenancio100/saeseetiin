@@ -33,7 +33,7 @@ MENU_ITEMS = {
             },
             {
                 'name': 'Incluir Novo Grupo',
-                'route': 'group:new',
+                'route': 'group:create',
                 'icon': 'fa-solid fa-caret-right fa',
             }
         ]

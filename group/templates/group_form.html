@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 
-{% block title %}Incluir Novo Grupo{% endblock %}
+{% block title %}{% if 'create' in request.path %}Incluir Novo Grupo{% else %}Atualizar Grupo{% endif %}{% endblock %}
 {% block screenname %}Grupo{% endblock %}
-{% block breadcrumb %}Incluir Novo Grupo{% endblock %}
+{% block breadcrumb %}{% if 'create' in request.path %}Incluir Novo Grupo{% else %}Atualizar Grupo{% endif %}{% endblock %}
 
 {% block contents %}
   <div class="card card-outline card-primary">
     <div class="card-header">
-      <h3 class="card-title">Incluir Novo Grupo</h3>
+      <h3 class="card-title">{% if 'create' in request.path %}Incluir Novo Grupo{% else %}Atualizar Grupo{% endif %}</h3>
     </div>
 
-    <form method="POST" action="{% url 'group:new' %}">
+    <form method="POST">
       {% csrf_token %}
 
       <div class="card-body">

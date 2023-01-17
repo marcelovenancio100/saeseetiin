@@ -2,5 +2,5 @@ projectKey=sammlung
 serverUrl=http://sonarqube:9000
 serverVersion=9.8.0.63668
 dashboardUrl=http://sonarqube:9000/dashboard?id=sammlung
-ceTaskId=AYWhdCOv7M8hd3FVT9OM
-ceTaskUrl=http://sonarqube:9000/api/ce/task?id=AYWhdCOv7M8hd3FVT9OM
+ceTaskId=AYWwvQHiCovc8IkXQ37E
+ceTaskUrl=http://sonarqube:9000/api/ce/task?id=AYWwvQHiCovc8IkXQ37E

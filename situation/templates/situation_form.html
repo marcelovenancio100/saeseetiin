@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}{% if 'create' in request.path %}Incluir Nova Situação{% else %}Atualizar Situação{% endif %}{% endblock %}
+{% block screenname %}Situação{% endblock %}
+{% block breadcrumb %}{% if 'create' in request.path %}Incluir Nova Situação{% else %}Atualizar Situação{% endif %}{% endblock %}
+
+{% block contents %}
+  <div class="card card-outline card-primary">
+    <div class="card-header">
+      <h3 class="card-title">{% if 'create' in request.path %}Incluir Nova Situação{% else %}Atualizar Situação{% endif %}</h3>
+    </div>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="card-body">
+        {% bootstrap_form form %}
+      </div>
+
+      <div class="card-footer">
+        {% buttons %}
+          <button type="submit" class="btn btn-primary">Salvar</button>
+          <a href="{% url 'situation:list' %}" class="btn btn-primary">Cancelar</a>
+        {% endbuttons %}
+      </div>
+    </form>
+  </div>
+{% endblock %}

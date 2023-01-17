@@ -50,7 +50,7 @@ MENU_ITEMS = {
             },
             {
                 'name': 'Incluir Nova Situação',
-                'route': 'situation:new',
+                'route': 'situation:create',
                 'icon': 'fa-solid fa-caret-right fa',
             }
         ]

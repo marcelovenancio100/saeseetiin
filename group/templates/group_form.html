@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 
 {% block title %}{% if 'create' in request.path %}Incluir Novo Grupo{% else %}Atualizar Grupo{% endif %}{% endblock %}
-{% block screenname %}Grupo{% endblock %}
+{% block screenname %}<i class="fa-solid fa-layer-group fa"></i> Grupo{% endblock %}
 {% block breadcrumb %}{% if 'create' in request.path %}Incluir Novo Grupo{% else %}Atualizar Grupo{% endif %}{% endblock %}
 
 {% block contents %}

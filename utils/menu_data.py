@@ -16,7 +16,7 @@ MENU_ITEMS = {
             },
             {
                 'name': 'Incluir Novo Usuário',
-                'route': 'user:new',
+                'route': 'user:create',
                 'icon': 'fa-solid fa-caret-right fa',
             }
         ]
@@ -67,7 +67,7 @@ MENU_ITEMS = {
             },
             {
                 'name': 'Incluir Nova Coleção',
-                'route': 'collection:new',
+                'route': 'collection:create',
                 'icon': 'fa-solid fa-caret-right fa',
             }
         ]

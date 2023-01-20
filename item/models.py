@@ -24,7 +24,7 @@ class Item(models.Model):
     box = models.BooleanField(verbose_name='Tem caixa', default=True)
     original_box = models.BooleanField(verbose_name='Caixa original', default=True)
     negotiable = models.BooleanField(verbose_name='É negociável', default=True)
-    registration_date = models.DateField(verbose_name='Data de cadastro', auto_now=True)
+    registration_date = models.DateField(verbose_name='Data de cadastro')
     specifications = models.TextField(verbose_name='Especificações', blank=True, null=True)
     damages = models.TextField(verbose_name='Avarias', blank=True, null=True)
     comments = models.TextField(verbose_name='Observações', blank=True, null=True)

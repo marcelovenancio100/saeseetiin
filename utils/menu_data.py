@@ -84,7 +84,7 @@ MENU_ITEMS = {
             },
             {
                 'name': 'Incluir Novo Item',
-                'route': 'item:new',
+                'route': 'item:create',
                 'icon': 'fa-solid fa-caret-right fa',
             }
         ]

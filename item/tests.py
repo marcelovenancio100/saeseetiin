@@ -29,8 +29,12 @@ class ItemTest(TestCase):
             collection=self.collection,
             code='001',
             name='name001',
+            description='description001',
             brand='brand001',
             model='model001',
+            serial_number='serial_number001',
+            developer='developer001',
+            distributor='distributor001',
             release_year=1111,
             manufacture_year=1111,
             group=self.group,
@@ -59,11 +63,23 @@ class ItemTest(TestCase):
     def test_item_attr_name_equals(self):
         self.assertEqual(self.item.name, 'name001')
 
+    def test_item_attr_description_equals(self):
+        self.assertEqual(self.item.description, 'description001')
+
     def test_item_attr_brand_equals(self):
         self.assertEqual(self.item.brand, 'brand001')
 
     def test_item_attr_model_equals(self):
         self.assertEqual(self.item.model, 'model001')
+
+    def test_item_attr_serial_number_equals(self):
+        self.assertEqual(self.item.serial_number, 'serial_number001')
+
+    def test_item_attr_developer_equals(self):
+        self.assertEqual(self.item.developer, 'developer001')
+
+    def test_item_attr_distributor_equals(self):
+        self.assertEqual(self.item.distributor, 'distributor001')
 
     def test_item_attr_release_year_equals(self):
         self.assertEqual(self.item.release_year, 1111)
@@ -116,11 +132,23 @@ class ItemTest(TestCase):
     def test_item_attr_name_must_be_string(self):
         self.assertIsInstance(self.item.name, str)
 
+    def test_item_attr_description_must_be_string(self):
+        self.assertIsInstance(self.item.description, str)
+
     def test_item_attr_brand_must_be_string(self):
         self.assertIsInstance(self.item.brand, str)
 
     def test_item_attr_model_must_be_string(self):
         self.assertIsInstance(self.item.model, str)
+
+    def test_item_attr_serial_number_must_be_string(self):
+        self.assertIsInstance(self.item.serial_number, str)
+
+    def test_item_attr_developer_must_be_string(self):
+        self.assertIsInstance(self.item.developer, str)
+
+    def test_item_attr_distributor_must_be_string(self):
+        self.assertIsInstance(self.item.distributor, str)
 
     def test_item_attr_release_year_must_be_int(self):
         self.assertIsInstance(self.item.release_year, int)
@@ -177,6 +205,11 @@ class ItemTest(TestCase):
     def test_item_attr_name_cannot_be_null(self):
         with self.assertRaises(IntegrityError):
             self.item.name = None
+            self.item.save()
+
+    def test_item_attr_description_cannot_be_null(self):
+        with self.assertRaises(IntegrityError):
+            self.item.description = None
             self.item.save()
 
     def test_item_attr_brand_cannot_be_null(self):
@@ -244,6 +277,11 @@ class ItemTest(TestCase):
             self.item.name = '1' * 101
             self.item.save()
 
+    def test_item_attr_description_must_be_max_size_255(self):
+        with self.assertRaises(DataError):
+            self.item.description = '1' * 256
+            self.item.save()
+
     def test_item_attr_brand_must_be_max_size_100(self):
         with self.assertRaises(DataError):
             self.item.brand = '1' * 101
@@ -252,6 +290,21 @@ class ItemTest(TestCase):
     def test_item_attr_model_must_be_max_size_100(self):
         with self.assertRaises(DataError):
             self.item.model = '1' * 101
+            self.item.save()
+
+    def test_item_attr_serial_number_must_be_max_size_100(self):
+        with self.assertRaises(DataError):
+            self.item.serial_number = '1' * 101
+            self.item.save()
+
+    def test_item_attr_developer_must_be_max_size_100(self):
+        with self.assertRaises(DataError):
+            self.item.developer = '1' * 101
+            self.item.save()
+
+    def test_item_attr_distributor_must_be_max_size_100(self):
+        with self.assertRaises(DataError):
+            self.item.distributor = '1' * 101
             self.item.save()
 
     def test_item_attr_market_value_must_be_max_size_10_2(self):
@@ -271,8 +324,12 @@ class ItemTest(TestCase):
                 collection=self.collection,
                 code='test',
                 name='test',
+                description='test',
                 brand='test',
                 model='test',
+                serial_number='test',
+                developer='test',
+                distributor='test',
                 release_year=1111,
                 manufacture_year=1111,
                 group=self.group,

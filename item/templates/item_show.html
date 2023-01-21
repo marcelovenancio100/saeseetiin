@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load humanize %}
+
+{% block title %}Expor Itens{% endblock %}
+{% block screenname %}<i class="fa-solid fa-gamepad fa"></i> Itens{% endblock %}
+{% block breadcrumb %}Expor Itens{% endblock %}
+
+{% block contents %}
+  <div class="card-columns mt-2">
+    {% for item in items %}
+      <div class="card">
+        {% if item.photo1 %}
+          <a href="{% url 'item:detail' item.id %}">
+            <img class="card-img-top" src="{{ item.photo1.url }}" alt="{{ item.name }}">
+          </a>
+        {% endif %}
+
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{% url 'item:detail' item.id %}">
+              {{ item.name }}
+            </a>
+          </h5>
+          <p class="card-text">{{ item.description }}</p>
+          <p class="card-text">
+            <small class="text-muted">
+              {{ item.brand }}
+              |
+              {{ item.model }}
+              |
+              {{ item.registration_date | naturalday | title }}
+            </small>
+          </p>
+
+          <div class="text-right">
+            <a href="{% url 'item:detail' item.id %}" class="btn btn-outline-secondary">Detalhar Item</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="row">
+    <div class="col">
+      {% include 'partials/_pagination.html' %}
+    </div>
+  </div>
+{% endblock %}

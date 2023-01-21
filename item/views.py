@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.urls import reverse_lazy
@@ -52,3 +52,16 @@ class Delete(LoginRequiredMixinCustom, SuccessMessageMixin, DeleteView):
     model = Item
     success_url = reverse_lazy('item:list')
     success_message = 'Item excluído com sucesso.'
+
+
+class Show(LoginRequiredMixinCustom, ListView):
+    template_name = 'item_show.html'
+    model = Item
+    context_object_name = 'items'
+    paginate_by = 3
+    ordering = ['-id']
+
+
+class Detail(LoginRequiredMixinCustom, DetailView):
+    template_name = 'item_detail.html'
+    model = Item

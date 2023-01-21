@@ -86,6 +86,11 @@ MENU_ITEMS = {
                 'name': 'Incluir Novo Item',
                 'route': 'item:create',
                 'icon': 'fa-solid fa-caret-right fa',
+            },
+            {
+                'name': 'Expor Itens',
+                'route': 'item:show',
+                'icon': 'fa-solid fa-caret-right fa',
             }
         ]
     }

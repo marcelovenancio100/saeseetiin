@@ -3,57 +3,70 @@
 
 <html lang="pt-br">
 <head>
-    {% include 'partials/_head.html '%}
-    <title>vNx Sammlung | {% block title %}{% endblock %}</title>
+  {% include 'partials/_head.html '%}
+  <title>
+    vNx Sammlung |
+    {% if 'create' in request.path %}Incluir
+    {% elif 'update' in request.path %}Atualizar
+    {% endif %}
+    {% block title %}{% endblock %}
+  </title>
 </head>
 
 <body>
-    {% include 'partials/_preloader.html' %}
-    {% include 'partials/_navbar.html' %}
-    {% include 'partials/_sidebar.html' %}
+{% include 'partials/_preloader.html' %}
+{% include 'partials/_navbar.html' %}
+{% include 'partials/_sidebar.html' %}
 
-    <div class="content-wrapper">
-      <section class="content-header">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-12">
-              <h1>{% block screenname %}{% endblock %}</h1>
-            </div>
-            <div class="col-sm-12">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-                <li class="breadcrumb-item active">{% block breadcrumb %}{% endblock %}</li>
-              </ol>
-            </div>
-          </div>
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>{% block screenname %}{% endblock %}</h1>
+          <p class="ml-2">teste</p>
         </div>
-      </section>
-
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row-md-12">
-            <div class="col-md-12">
-
-              {% block contents %}{% endblock %}
-
-            </div>
-
-            <div class="custom-msg">
-              {% bootstrap_messages %}
-            </div>
-          </div>
+        <div class="col-sm-12">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+            <li class="breadcrumb-item active">
+              {% if 'create' in request.path %}Incluir
+              {% elif 'update' in request.path %}Atualizar
+              {% endif %}
+              {% block breadcrumb %}{% endblock %}
+            </li>
+          </ol>
         </div>
-      </section>
+      </div>
     </div>
+  </section>
 
-    {% include 'partials/_footer.html' %}
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row-md-12">
+        <div class="col-md-12">
 
-    <script>
+          {% block contents %}{% endblock %}
+
+        </div>
+
+        <div class="custom-msg">
+          {% bootstrap_messages %}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% include 'partials/_footer.html' %}
+
+<script>
       $(document).ready(function() {
         setTimeout(function() {
           $(".custom-msg").slideToggle();
         }, 5000);
       });
-    </script>
+
+</script>
 </body>
 </html>

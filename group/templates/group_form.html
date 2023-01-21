@@ -1,29 +1,29 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 
-{% block title %}{% if 'create' in request.path %}Incluir Novo Grupo{% else %}Atualizar Grupo{% endif %}{% endblock %}
+{% block title %} Grupo{% endblock %}
 {% block screenname %}<i class="fa-solid fa-layer-group fa"></i> Grupo{% endblock %}
-{% block breadcrumb %}{% if 'create' in request.path %}Incluir Novo Grupo{% else %}Atualizar Grupo{% endif %}{% endblock %}
+{% block breadcrumb %} Grupo{% endblock %}
 
 {% block contents %}
-  <div class="card card-outline card-primary">
-    <div class="card-header">
-      <h3 class="card-title">{% if 'create' in request.path %}Incluir Novo Grupo{% else %}Atualizar Grupo{% endif %}</h3>
+<div class="card card-outline card-primary">
+  <div class="card-header">
+    <h3 class="card-title">{% if 'create' in request.path %}Incluir{% else %}Atualizar{% endif %} Grupo</h3>
+  </div>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="card-body">
+      {% bootstrap_form form %}
     </div>
 
-    <form method="POST">
-      {% csrf_token %}
-
-      <div class="card-body">
-        {% bootstrap_form form %}
-      </div>
-
-      <div class="card-footer">
-        {% buttons %}
-          <button type="submit" class="btn btn-primary">Salvar</button>
-          <a href="{% url 'group:list' %}" class="btn btn-primary">Cancelar</a>
-        {% endbuttons %}
-      </div>
-    </form>
-  </div>
+    <div class="card-footer">
+      {% buttons %}
+      <button type="submit" class="btn btn-primary">Salvar</button>
+      <a href="{% url 'group:list' %}" class="btn btn-primary">Cancelar</a>
+      {% endbuttons %}
+    </div>
+  </form>
+</div>
 {% endblock %}

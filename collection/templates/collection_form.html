@@ -1,29 +1,29 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 
-{% block title %}{% if 'create' in request.path %}Incluir Nova Coleção{% else %}Atualizar Coleção{% endif %}{% endblock %}
+{% block title %} Coleção{% endblock %}
 {% block screenname %}<i class="fa-solid fa-th fa"></i> Coleção{% endblock %}
-{% block breadcrumb %}{% if 'create' in request.path %}Incluir Nova Coleção{% else %}Atualizar Coleção{% endif %}{% endblock %}
+{% block breadcrumb %} Coleção{% endblock %}
 
 {% block contents %}
-  <div class="card card-outline card-primary">
-    <div class="card-header">
-      <h3 class="card-title">{% if 'create' in request.path %}Incluir Nova Coleção{% else %}Atualizar Coleção{% endif %}</h3>
+<div class="card card-outline card-primary">
+  <div class="card-header">
+    <h3 class="card-title">{% if 'create' in request.path %}Incluir{% else %}Atualizar{% endif %} Coleção</h3>
+  </div>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="card-body">
+      {% bootstrap_form form %}
     </div>
 
-    <form method="POST">
-      {% csrf_token %}
-
-      <div class="card-body">
-        {% bootstrap_form form %}
-      </div>
-
-      <div class="card-footer">
-        {% buttons %}
-          <button type="submit" class="btn btn-primary">Salvar</button>
-          <a href="{% url 'collection:list' %}" class="btn btn-primary">Cancelar</a>
-        {% endbuttons %}
-      </div>
-    </form>
-  </div>
+    <div class="card-footer">
+      {% buttons %}
+      <button type="submit" class="btn btn-primary">Salvar</button>
+      <a href="{% url 'collection:list' %}" class="btn btn-primary">Cancelar</a>
+      {% endbuttons %}
+    </div>
+  </form>
+</div>
 {% endblock %}

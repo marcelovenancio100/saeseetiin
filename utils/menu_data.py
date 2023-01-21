@@ -15,7 +15,7 @@ MENU_ITEMS = {
                 'icon': 'fa-solid fa-caret-right fa',
             },
             {
-                'name': 'Incluir Novo Usuário',
+                'name': 'Incluir Usuário',
                 'route': 'user:create',
                 'icon': 'fa-solid fa-caret-right fa',
             }
@@ -32,7 +32,7 @@ MENU_ITEMS = {
                 'icon': 'fa-solid fa-caret-right fa',
             },
             {
-                'name': 'Incluir Novo Grupo',
+                'name': 'Incluir Grupo',
                 'route': 'group:create',
                 'icon': 'fa-solid fa-caret-right fa',
             }
@@ -49,7 +49,7 @@ MENU_ITEMS = {
                 'icon': 'fa-solid fa-caret-right fa',
             },
             {
-                'name': 'Incluir Nova Situação',
+                'name': 'Incluir Situação',
                 'route': 'situation:create',
                 'icon': 'fa-solid fa-caret-right fa',
             }
@@ -66,7 +66,7 @@ MENU_ITEMS = {
                 'icon': 'fa-solid fa-caret-right fa',
             },
             {
-                'name': 'Incluir Nova Coleção',
+                'name': 'Incluir Coleção',
                 'route': 'collection:create',
                 'icon': 'fa-solid fa-caret-right fa',
             }
@@ -83,12 +83,12 @@ MENU_ITEMS = {
                 'icon': 'fa-solid fa-caret-right fa',
             },
             {
-                'name': 'Incluir Novo Item',
+                'name': 'Incluir Item',
                 'route': 'item:create',
                 'icon': 'fa-solid fa-caret-right fa',
             },
             {
-                'name': 'Expor Itens',
+                'name': 'Exposição de Itens',
                 'route': 'item:show',
                 'icon': 'fa-solid fa-caret-right fa',
             }

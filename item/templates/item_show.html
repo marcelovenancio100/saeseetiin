@@ -2,18 +2,45 @@
 {% load custom_filters %}
 {% load humanize %}
 
-{% block title %}Expor Itens{% endblock %}
+{% block title %}Exposição de Itens{% endblock %}
 {% block screenname %}<i class="fa-solid fa-gamepad fa"></i> Itens{% endblock %}
-{% block breadcrumb %}Expor Itens{% endblock %}
+{% block breadcrumb %}Exposição de Itens{% endblock %}
 
 {% block contents %}
-  <div class="card-columns mt-2">
-    {% for item in items %}
+<div class="card card-outline card-primary">
+  <div class="card-header">
+    <h3 class="card-title">
+      <strong>Exposição de Itens</strong>
+      <small>(Exibindo {{ page_obj.start_index }}-{{ page_obj.end_index }} de {{ page_obj.paginator.count }})</small>
+    </h3>
+
+    <div class="card-tools">
+      <form method="GET" action="{% url 'item:show_search' %}">
+        <div class="input-group input-group-sm" style="width: 250px;">
+          <input type="text" name="filter" value="{{ request.GET.filter }}" class="form-control float-right"
+                 placeholder="Pesquisar">
+
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-default" title="Pesquisar">
+              <i class="fas fa-search"></i>
+            </button>
+            <a href="{% url 'item:show' %}" class="btn btn-default" title="Limpar Pesquisa">
+              <i class="fas fa-ban"></i>
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="card-columns mt-2">
+      {% for item in items %}
       <div class="card">
         {% if item.photo1 %}
-          <a href="{% url 'item:detail' item.id %}">
-            <img class="card-img-top" src="{{ item.photo1.url }}" alt="{{ item.name }}">
-          </a>
+        <a href="{% url 'item:detail' item.id %}">
+          <img class="card-img-top" src="{{ item.photo1.url }}" alt="{{ item.name }}">
+        </a>
         {% endif %}
 
         <div class="card-body">
@@ -38,12 +65,12 @@
           </div>
         </div>
       </div>
-    {% endfor %}
-  </div>
-
-  <div class="row">
-    <div class="col">
-      {% include 'partials/_pagination.html' %}
+      {% endfor %}
     </div>
   </div>
+
+  <div class="card-footer">
+    {% include 'partials/_pagination.html' %}
+  </div>
+</div>
 {% endblock %}

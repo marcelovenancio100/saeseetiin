@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load custom_filters %}
+{% load static %}
 {% load humanize %}
 
 {% block title %}Exposição de Itens{% endblock %}
@@ -40,6 +40,10 @@
         {% if item.photo1 %}
         <a href="{% url 'item:detail' item.id %}">
           <img class="card-img-top" src="{{ item.photo1.url }}" alt="{{ item.name }}">
+        </a>
+        {% else %}
+        <a href="{% url 'item:detail' item.id %}">
+          <img class="card-img-top" src="{% static 'img/noimage.jpg' %}" alt="{{ item.name }}">
         </a>
         {% endif %}
 

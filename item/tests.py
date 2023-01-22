@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.db.utils import DataError, IntegrityError
-from datetime import date
+from django.utils import timezone
 from decimal import Decimal
+from datetime import datetime
 
 from .models import Item
 from collection.models import Collection
@@ -45,8 +46,10 @@ class ItemTest(TestCase):
             box=True,
             original_box=True,
             negotiable=True,
-            registration_date=date.today(),
+            registration_date=timezone.now(),
+            last_update_date=timezone.now(),
             specifications='specifications001',
+            composition='composition001',
             damages='damages001',
             comments='comments001'
         )
@@ -111,11 +114,11 @@ class ItemTest(TestCase):
     def test_item_attr_negotiable_equals(self):
         self.assertEqual(self.item.negotiable, True)
 
-    def test_item_attr_registration_date_equals(self):
-        self.assertEqual(self.item.registration_date, date.today())
-
     def test_item_attr_specifications_equals(self):
         self.assertEqual(self.item.specifications, 'specifications001')
+
+    def test_item_attr_composition_equals(self):
+        self.assertEqual(self.item.composition, 'composition001')
 
     def test_item_attr_damages_equals(self):
         self.assertEqual(self.item.damages, 'damages001')
@@ -180,11 +183,17 @@ class ItemTest(TestCase):
     def test_item_attr_negotiable_must_be_boolean(self):
         self.assertIsInstance(self.item.negotiable, bool)
 
-    def test_item_attr_registration_date_must_be_date(self):
-        self.assertIsInstance(self.item.registration_date, date)
+    def test_item_attr_registration_date_must_be_datetime(self):
+        self.assertIsInstance(self.item.registration_date, datetime)
+
+    def test_item_attr_last_update_date_must_be_datetime(self):
+        self.assertIsInstance(self.item.last_update_date, datetime)
 
     def test_item_attr_specifications_must_be_string(self):
         self.assertIsInstance(self.item.specifications, str)
+
+    def test_item_attr_composition_must_be_string(self):
+        self.assertIsInstance(self.item.composition, str)
 
     def test_item_attr_damages_must_be_string(self):
         self.assertIsInstance(self.item.damages, str)
@@ -340,8 +349,10 @@ class ItemTest(TestCase):
                 box=True,
                 original_box=True,
                 negotiable=True,
-                registration_date=date.today(),
+                registration_date=timezone.now(),
+                last_update_date=timezone.now(),
                 specifications='test',
+                composition='test',
                 damages='test',
                 comments='test'
             )

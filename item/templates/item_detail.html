@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load custom_filters %}
+{% load static %}
 {% load humanize %}
 
 {% block title %}Detalhe do Item{% endblock %}
@@ -7,91 +7,175 @@
 {% block breadcrumb %}Detalhe do Item{% endblock %}
 
 {% block contents %}
-<div id="carouselIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    {% if item.photo1 %}
-    <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
-    {% endif %}
-    {% if item.photo2 %}
-    <li data-target="#carouselIndicators" data-slide-to="1"></li>
-    {% endif %}
-    {% if item.photo3 %}
-    <li data-target="#carouselIndicators" data-slide-to="2"></li>
-    {% endif %}
-    {% if item.photo4 %}
-    <li data-target="#carouselIndicators" data-slide-to="3"></li>
-    {% endif %}
-    {% if item.photo5 %}
-    <li data-target="#carouselIndicators" data-slide-to="4"></li>
-    {% endif %}
-  </ol>
+<div class="card card-outline card-primary">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="jumbotron pb-4">
+          <h1 class="display-4">{{ item.name }}</h1>
+          <p class="lead">{{ item.description }}</p>
+          <hr class="my-4">
 
-  <div class="carousel-inner">
-    {% if item.photo1 %}
-    <div class="carousel-item active">
-      <div class="text-center">
-        <img class="img-thumbnail" src="{{ item.photo1.url }}" alt="{{ item.name }}">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{ item.name }}</h5>
-          <p>{{ item.description }}</p>
+          <div class="row">
+            <div class="filtr-item col-sm-3" data-category="1" data-sort="white sample">
+              <a href="{% if item.photo1 %}{{ item.photo1.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}"
+                 data-toggle="lightbox" data-title="{{ item.name }} | Imagem 1">
+                <img src="{% if item.photo1 %}{{ item.photo1.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}"
+                     class="img-fluid mb-2 img-thumbnail" alt="white sample"/>
+              </a>
+            </div>
+
+            <div class="filtr-item col-sm-3" data-category="1" data-sort="white sample">
+              <a href="{% if item.photo2 %}{{ item.photo2.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}"
+                 data-toggle="lightbox" data-title="{{ item.name }} | Imagem 2">
+                <img src="{% if item.photo2 %}{{ item.photo2.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}"
+                     class="img-fluid mb-2 img-thumbnail" alt="white sample"/>
+              </a>
+            </div>
+
+            <div class="filtr-item col-sm-3" data-category="1" data-sort="white sample">
+              <a href="{% if item.photo3 %}{{ item.photo3.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}"
+                 data-toggle="lightbox" data-title="{{ item.name }} | Imagem 3">
+                <img src="{% if item.photo3 %}{{ item.photo3.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}"
+                     class="img-fluid mb-2 img-thumbnail" alt="white sample"/>
+              </a>
+            </div>
+
+            <div class="filtr-item col-sm-3" data-category="1" data-sort="white sample">
+              <a href="{% if item.photo4 %}{{ item.photo4.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}"
+                 data-toggle="lightbox" data-title="{{ item.name }} | Imagem 4">
+                <img src="{% if item.photo4 %}{{ item.photo4.url }}{% else %}{% static 'img/noimage.jpg' %}{% endif %}"
+                     class="img-fluid mb-2 img-thumbnail" alt="white sample"/>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    {% endif %}
-    {% if item.photo2 %}
-    <div class="carousel-item">
-      <div class="text-center">
-        <img class="img-thumbnail" src="{{ item.photo2.url }}" alt="{{ item.name }}">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{ item.name }}</h5>
-          <p>{{ item.description }}</p>
+
+    <div class="row">
+      <div class="col-4">
+        <div class="jumbotron jumbotron-fluid pt-4 pb-4">
+          <div class="container">
+            <h1 class="display-5 ml-4 mr-4">{{ item.brand }}</h1>
+            <hr class="my-4 ml-4 mr-4">
+            <p class="lead ml-4 mr-4"><b>Grupo: </b>{{ item.group.name }}</p>
+            <p class="lead ml-4 mr-4"><b>Número de série: </b>{% if item.serial_number %}{{ item.serial_number }}{% endif %}</p>
+            <p class="lead ml-4 mr-4"><b>Desenvolvedor: </b>{% if item.developer %}{{ item.developer }}{% endif %}</p>
+            <p class="lead ml-4 mr-4"><b>Distribuidor: </b>{% if item.distributor %}{{ item.distributor }}{% endif %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="jumbotron jumbotron-fluid pt-4 pb-4">
+          <div class="container">
+            <h1 class="display-5 ml-4 mr-4">{{ item.model }}</h1>
+            <hr class="my-4 ml-4 mr-4">
+            <p class="lead ml-4 mr-4"><b>Ano de lançamento: </b>{% if item.release_year %}{{ item.release_year }}{% endif %}</p>
+            <p class="lead ml-4 mr-4"><b>Ano de fabricação: </b>{% if item.manufacture_year %}{{ item.manufacture_year }}{% endif %}</p>
+            <p class="lead ml-4 mr-4"><b>Registrado em: </b>{{ item.registration_date }}</p>
+            <p class="lead ml-4 mr-4"><b>Atualizado em: </b>{{ item.last_update_date }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="jumbotron jumbotron-fluid pt-4 pb-4">
+          <div class="container">
+            <h1 class="display-5 ml-4 mr-4">{{ item.situation.name }}</h1>
+            <hr class="my-4 ml-4 mr-4">
+            <p class="lead ml-4 mr-4"><b>É Original: </b>
+              {% if item.original %}<i class="fa-solid fa-check fa"></i>
+              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}</p>
+            <p class="lead ml-4 mr-4"><b>Tem caixa: </b>
+              {% if item.box %}<i class="fa-solid fa-check fa"></i>
+              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}</p>
+            <p class="lead ml-4 mr-4"><b>Caixa original: </b>
+              {% if item.original_box %}<i class="fa-solid fa-check fa"></i>
+              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}</p>
+            <p class="lead ml-4 mr-4"><b>É negociável: </b>
+              {% if item.negotiable %}<i class="fa-solid fa-check fa"></i>
+              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}</p>
+          </div>
         </div>
       </div>
     </div>
-    {% endif %}
-    {% if item.photo3 %}
-    <div class="carousel-item">
-      <div class="text-center">
-        <img class="img-thumbnail" src="{{ item.photo3.url }}" alt="{{ item.name }}">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{ item.name }}</h5>
-          <p>{{ item.description }}</p>
+
+
+
+
+
+
+    <div class="row mt-4">
+      <div class="col-6">
+        <h2 class="lead"></h2>
+        <p class="text-muted mb-2"><b>Valor de mercado: </b>{{ item.market_value }}</p>
+        <p class="text-muted mb-2"><b>Valor de venda: </b>{{ item.sale_value }}</p>
+        </p>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-sm-6">
+        <div class="position-relative p-3 bg-gray" style="height: 180px">
+          <div class="ribbon-wrapper ribbon-lg">
+            <div class="ribbon bg-info">
+              Especificações
+            </div>
+          </div>
+          {% if item.specifications %}{{ item.specifications }}{% endif %}
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="position-relative p-3 bg-gray" style="height: 180px">
+          <div class="ribbon-wrapper ribbon-lg">
+            <div class="ribbon bg-info">
+              Composição
+            </div>
+          </div>
+          {% if item.composition %}{{ item.composition }}{% endif %}
         </div>
       </div>
     </div>
-    {% endif %}
-    {% if item.photo4 %}
-    <div class="carousel-item">
-      <div class="text-center">
-        <img class="img-thumbnail" src="{{ item.photo4.url }}" alt="{{ item.name }}">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{ item.name }}</h5>
-          <p>{{ item.description }}</p>
+    <div class="row mt-4">
+      <div class="col-sm-6">
+        <div class="position-relative p-3 bg-gray" style="height: 180px">
+          <div class="ribbon-wrapper ribbon-lg">
+            <div class="ribbon bg-info">
+              Avarias
+            </div>
+          </div>
+          {% if item.damages %}{{ item.damages }}{% endif %}
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="position-relative p-3 bg-gray" style="height: 180px">
+          <div class="ribbon-wrapper ribbon-lg">
+            <div class="ribbon bg-info">
+              Observações
+            </div>
+          </div>
+          {% if item.comments %}{{ item.comments }}{% endif %}
         </div>
       </div>
     </div>
-    {% endif %}
-    {% if item.photo5 %}
-    <div class="carousel-item">
-      <div class="text-center">
-        <img class="img-thumbnail" src="{{ item.photo5.url }}" alt="{{ item.name }}">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{ item.name }}</h5>
-          <p>{{ item.description }}</p>
-        </div>
-      </div>
-    </div>
-    {% endif %}
   </div>
 
-  <a id="carousel-control-prev" class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
-    <i class="fas fa-arrow-left" aria-hidden="true"></i>
-    <span class="sr-only">Previous</span>
-  </a>
-
-  <a id="carousel-control-next" class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
-    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-    <span class="sr-only">Next</span>
-  </a>
+  <div class="card-footer">
+    <div class="text-right">
+      <a href="{% url 'item:update' item.id %}" class="btn btn-primary">Editar</a>
+      <a href="{% url 'item:show' %}" class="btn btn-primary">Voltar</a>
+    </div>
+  </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+  $(function () {
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+      event.preventDefault();
+
+      $(this).ekkoLightbox({
+        alwaysShowClose: true
+      });
+    });
+  });
 {% endblock %}

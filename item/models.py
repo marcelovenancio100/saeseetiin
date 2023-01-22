@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 from PIL import Image
 import os
 
@@ -28,20 +29,26 @@ class Item(models.Model):
     box = models.BooleanField(verbose_name='Tem caixa', default=True)
     original_box = models.BooleanField(verbose_name='Caixa original', default=True)
     negotiable = models.BooleanField(verbose_name='É negociável', default=True)
-    registration_date = models.DateField(verbose_name='Data de cadastro')
+    registration_date = models.DateTimeField(verbose_name='Data de cadastro', editable=False)
+    last_update_date = models.DateTimeField(verbose_name='Data da última atualização', editable=False)
     specifications = models.TextField(verbose_name='Especificações', blank=True, null=True)
+    composition = models.TextField(verbose_name='Composição', blank=True, null=True)
     damages = models.TextField(verbose_name='Avarias', blank=True, null=True)
     comments = models.TextField(verbose_name='Observações', blank=True, null=True)
     photo1 = models.ImageField(verbose_name='Foto 1', upload_to='img/%Y/%m/%d', blank=True, null=True)
     photo2 = models.ImageField(verbose_name='Foto 2', upload_to='img/%Y/%m/%d', blank=True, null=True)
     photo3 = models.ImageField(verbose_name='Foto 3', upload_to='img/%Y/%m/%d', blank=True, null=True)
     photo4 = models.ImageField(verbose_name='Foto 4', upload_to='img/%Y/%m/%d', blank=True, null=True)
-    photo5 = models.ImageField(verbose_name='Foto 5', upload_to='img/%Y/%m/%d', blank=True, null=True)
 
     def __str__(self):
         return f'{self.name}'
 
     def save(self, *args, **kwargs):
+        if not self.pk:
+            self.registration_date = timezone.now()
+
+        self.last_update_date = timezone.now()
+
         super().save(*args, **kwargs)
 
         if self.photo1:
@@ -55,9 +62,6 @@ class Item(models.Model):
 
         if self.photo4:
             self.resize_image(self.photo4.name, 800)
-
-        if self.photo5:
-            self.resize_image(self.photo5.name, 800)
 
     @staticmethod
     def resize_image(image_name, new_width):

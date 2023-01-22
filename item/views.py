@@ -84,3 +84,8 @@ class Detail(LoginRequiredMixinCustom, DetailView):
     template_name = 'item_detail.html'
     model = Item
     context_object_name = 'item'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = Item.objects.select_related('collection', 'group', 'situation')
+        return qs

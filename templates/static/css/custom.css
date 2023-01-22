@@ -13,17 +13,3 @@ body {
     right: 1%;
     width: 15%;
 }
-
-#carousel-control-prev {
-    left: 160px;
-    border-bottom: 0;
-    font-size: 32px;
-    color: #444;
-}
-
-#carousel-control-next {
-    right: 160px;
-    border-bottom: 0;
-    font-size: 32px;
-    color: #444;
-}

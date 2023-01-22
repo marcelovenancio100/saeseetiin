@@ -13,60 +13,63 @@
   </title>
 </head>
 
-<body>
-{% include 'partials/_preloader.html' %}
-{% include 'partials/_navbar.html' %}
-{% include 'partials/_sidebar.html' %}
+<body class="sidebar_mini" style="height: auto;">
+<div class="wrapper">
+  {% include 'partials/_preloader.html' %}
+  {% include 'partials/_navbar.html' %}
+  {% include 'partials/_sidebar.html' %}
 
-<div class="content-wrapper">
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12">
-          <h1>{% block screenname %}{% endblock %}</h1>
-          <p class="ml-2">teste</p>
-        </div>
-        <div class="col-sm-12">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
-            <li class="breadcrumb-item active">
-              {% if 'create' in request.path %}Incluir
-              {% elif 'update' in request.path %}Atualizar
-              {% endif %}
-              {% block breadcrumb %}{% endblock %}
-            </li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row-md-12">
-        <div class="col-md-12">
-
-          {% block contents %}{% endblock %}
-
-        </div>
-
-        <div class="custom-msg">
-          {% bootstrap_messages %}
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1>{% block screenname %}{% endblock %}</h1>
+            <small class="ml-2">Copyright © 2022-2023 vNx Sammlung. Todos os direitos reservados.</small>
+          </div>
+          <div class="col-sm-12">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+              <li class="breadcrumb-item active">
+                {% if 'create' in request.path %}Incluir
+                {% elif 'update' in request.path %}Atualizar
+                {% endif %}
+                {% block breadcrumb %}{% endblock %}
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row-md-12">
+          <div class="col-md-12">
+
+            {% block contents %}{% endblock %}
+
+          </div>
+
+          <div class="custom-msg">
+            {% bootstrap_messages %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  {% include 'partials/_footer.html' %}
 </div>
 
-{% include 'partials/_footer.html' %}
-
 <script>
-      $(document).ready(function() {
-        setTimeout(function() {
-          $(".custom-msg").slideToggle();
-        }, 5000);
-      });
+  $(document).ready(function() {
+    setTimeout(function() {
+      $(".custom-msg").slideToggle();
+    }, 5000);
+  });
 
+  {% block scripts %}{% endblock %}
 </script>
 </body>
 </html>

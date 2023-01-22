@@ -1,1 +1,97 @@
-Detalhe
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load humanize %}
+
+{% block title %}Detalhe do Item{% endblock %}
+{% block screenname %}<i class="fa-solid fa-gamepad fa"></i> Item{% endblock %}
+{% block breadcrumb %}Detalhe do Item{% endblock %}
+
+{% block contents %}
+<div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    {% if item.photo1 %}
+    <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+    {% endif %}
+    {% if item.photo2 %}
+    <li data-target="#carouselIndicators" data-slide-to="1"></li>
+    {% endif %}
+    {% if item.photo3 %}
+    <li data-target="#carouselIndicators" data-slide-to="2"></li>
+    {% endif %}
+    {% if item.photo4 %}
+    <li data-target="#carouselIndicators" data-slide-to="3"></li>
+    {% endif %}
+    {% if item.photo5 %}
+    <li data-target="#carouselIndicators" data-slide-to="4"></li>
+    {% endif %}
+  </ol>
+
+  <div class="carousel-inner">
+    {% if item.photo1 %}
+    <div class="carousel-item active">
+      <div class="text-center">
+        <img class="img-thumbnail" src="{{ item.photo1.url }}" alt="{{ item.name }}">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>{{ item.name }}</h5>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if item.photo2 %}
+    <div class="carousel-item">
+      <div class="text-center">
+        <img class="img-thumbnail" src="{{ item.photo2.url }}" alt="{{ item.name }}">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>{{ item.name }}</h5>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if item.photo3 %}
+    <div class="carousel-item">
+      <div class="text-center">
+        <img class="img-thumbnail" src="{{ item.photo3.url }}" alt="{{ item.name }}">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>{{ item.name }}</h5>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if item.photo4 %}
+    <div class="carousel-item">
+      <div class="text-center">
+        <img class="img-thumbnail" src="{{ item.photo4.url }}" alt="{{ item.name }}">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>{{ item.name }}</h5>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if item.photo5 %}
+    <div class="carousel-item">
+      <div class="text-center">
+        <img class="img-thumbnail" src="{{ item.photo5.url }}" alt="{{ item.name }}">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>{{ item.name }}</h5>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <a id="carousel-control-prev" class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+    <i class="fas fa-arrow-left" aria-hidden="true"></i>
+    <span class="sr-only">Previous</span>
+  </a>
+
+  <a id="carousel-control-next" class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+{% endblock %}

@@ -83,3 +83,4 @@ class ShowSearch(Show):
 class Detail(LoginRequiredMixinCustom, DetailView):
     template_name = 'item_detail.html'
     model = Item
+    context_object_name = 'item'

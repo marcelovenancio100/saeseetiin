@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load item_filters %}
 
 {% block title %}Detalhe do Item{% endblock %}
 {% block screenname %}<i class="fa-solid fa-gamepad fa"></i> Item{% endblock %}
@@ -49,6 +50,12 @@
               </a>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-12 text-right">
+              <small>Atualizado em: {{ item.last_update_date }}</small>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -57,7 +64,7 @@
       <div class="col-4">
         <div class="jumbotron jumbotron-fluid pt-4 pb-4">
           <div class="container">
-            <h1 class="display-5 ml-4 mr-4">{{ item.brand }}</h1>
+            <h1 class="ml-4 mr-4 custom-display"><i class="fa-solid fa-caret-right fa"></i> {{ item.brand }}</h1>
             <hr class="my-4 ml-4 mr-4">
             <p class="lead ml-4 mr-4"><b>Grupo: </b>{{ item.group.name }}</p>
             <p class="lead ml-4 mr-4"><b>Número de série: </b>{% if item.serial_number %}{{ item.serial_number }}{% endif %}</p>
@@ -69,19 +76,19 @@
       <div class="col-4">
         <div class="jumbotron jumbotron-fluid pt-4 pb-4">
           <div class="container">
-            <h1 class="display-5 ml-4 mr-4">{{ item.model }}</h1>
+            <h1 class="ml-4 mr-4 custom-display"><i class="fa-solid fa-caret-right fa"></i> {{ item.model }}</h1>
             <hr class="my-4 ml-4 mr-4">
             <p class="lead ml-4 mr-4"><b>Ano de lançamento: </b>{% if item.release_year %}{{ item.release_year }}{% endif %}</p>
             <p class="lead ml-4 mr-4"><b>Ano de fabricação: </b>{% if item.manufacture_year %}{{ item.manufacture_year }}{% endif %}</p>
-            <p class="lead ml-4 mr-4"><b>Registrado em: </b>{{ item.registration_date }}</p>
-            <p class="lead ml-4 mr-4"><b>Atualizado em: </b>{{ item.last_update_date }}</p>
+            <p class="lead ml-4 mr-4"><b>Valor de mercado: </b>{{ item.market_value|currency }}</p>
+            <p class="lead ml-4 mr-4"><b>Valor de venda: </b>{{ item.sale_value|currency }}</p>
           </div>
         </div>
       </div>
       <div class="col-4">
         <div class="jumbotron jumbotron-fluid pt-4 pb-4">
           <div class="container">
-            <h1 class="display-5 ml-4 mr-4">{{ item.situation.name }}</h1>
+            <h1 class="ml-4 mr-4 custom-display"><i class="fa-solid fa-caret-right fa"></i> {{ item.situation.name }}</h1>
             <hr class="my-4 ml-4 mr-4">
             <p class="lead ml-4 mr-4"><b>É Original: </b>
               {% if item.original %}<i class="fa-solid fa-check fa"></i>
@@ -100,61 +107,35 @@
       </div>
     </div>
 
-
-
-
-
-
     <div class="row mt-4">
-      <div class="col-6">
-        <h2 class="lead"></h2>
-        <p class="text-muted mb-2"><b>Valor de mercado: </b>{{ item.market_value }}</p>
-        <p class="text-muted mb-2"><b>Valor de venda: </b>{{ item.sale_value }}</p>
-        </p>
+      <div class="col-sm-12">
+        <p class="lead ml-4 mr-4"><b>Especificações: </b></br>
+          {% if item.specifications %}{{ item.specifications }}
+          {% else %}- NÃO INFORMADO -{% endif %}</p>
       </div>
     </div>
+
     <div class="row mt-4">
-      <div class="col-sm-6">
-        <div class="position-relative p-3 bg-gray" style="height: 180px">
-          <div class="ribbon-wrapper ribbon-lg">
-            <div class="ribbon bg-info">
-              Especificações
-            </div>
-          </div>
-          {% if item.specifications %}{{ item.specifications }}{% endif %}
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="position-relative p-3 bg-gray" style="height: 180px">
-          <div class="ribbon-wrapper ribbon-lg">
-            <div class="ribbon bg-info">
-              Composição
-            </div>
-          </div>
-          {% if item.composition %}{{ item.composition }}{% endif %}
-        </div>
+      <div class="col-sm-12">
+        <p class="lead ml-4 mr-4"><b>Composição: </b></br>
+          {% if item.composition %}{{ item.composition }}
+          {% else %}- NÃO INFORMADO -{% endif %}</p>
       </div>
     </div>
+
     <div class="row mt-4">
-      <div class="col-sm-6">
-        <div class="position-relative p-3 bg-gray" style="height: 180px">
-          <div class="ribbon-wrapper ribbon-lg">
-            <div class="ribbon bg-info">
-              Avarias
-            </div>
-          </div>
-          {% if item.damages %}{{ item.damages }}{% endif %}
-        </div>
+      <div class="col-sm-12">
+        <p class="lead ml-4 mr-4"><b>Avarias: </b></br>
+          {% if item.damages %}{{ item.damages }}
+          {% else %}- NÃO INFORMADO -{% endif %}</p>
       </div>
-      <div class="col-sm-6">
-        <div class="position-relative p-3 bg-gray" style="height: 180px">
-          <div class="ribbon-wrapper ribbon-lg">
-            <div class="ribbon bg-info">
-              Observações
-            </div>
-          </div>
-          {% if item.comments %}{{ item.comments }}{% endif %}
-        </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-sm-12">
+        <p class="lead ml-4 mr-4"><b>Observações: </b></br>
+          {% if item.comments %}{{ item.comments }}
+          {% else %}- NÃO INFORMADO -{% endif %}</p>
       </div>
     </div>
   </div>

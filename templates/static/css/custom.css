@@ -13,3 +13,7 @@ body {
     right: 1%;
     width: 15%;
 }
+
+.custom-display {
+    font-size: 2.0rem !important;
+}

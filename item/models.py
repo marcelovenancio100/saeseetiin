@@ -1,12 +1,12 @@
 from django.db import models
-from django.conf import settings
 from django.utils import timezone
-from PIL import Image
-import os
 
 from collection.models import Collection
+from brand.models import Brand
+from model.models import Model
 from group.models import Group
 from situation.models import Situation
+from utils.image_utils import resize_image
 
 
 class Item(models.Model):
@@ -14,8 +14,9 @@ class Item(models.Model):
     code = models.CharField(verbose_name='Código', max_length=10)
     name = models.CharField(verbose_name='Nome', max_length=100)
     description = models.CharField(verbose_name='Descrição', max_length=255)
-    brand = models.CharField(verbose_name='Marca', max_length=100)
-    model = models.CharField(verbose_name='Modelo', max_length=100)
+    brand = models.ForeignKey(Brand, verbose_name='Marca', on_delete=models.CASCADE)
+    model = models.ForeignKey(Model, verbose_name='Modelo', on_delete=models.CASCADE)
+    identifier_code = models.CharField(verbose_name='Código de identificação', max_length=100, blank=True, null=True)
     serial_number = models.CharField(verbose_name='Número de série', max_length=100, blank=True, null=True)
     developer = models.CharField(verbose_name='Desenvolvedor', max_length=100, blank=True, null=True)
     distributor = models.CharField(verbose_name='Distribuidor', max_length=100, blank=True, null=True)
@@ -52,31 +53,16 @@ class Item(models.Model):
         super().save(*args, **kwargs)
 
         if self.photo1:
-            self.resize_image(self.photo1.name, 800)
+            resize_image(self.photo1.name, 800)
 
         if self.photo2:
-            self.resize_image(self.photo2.name, 800)
+            resize_image(self.photo2.name, 800)
 
         if self.photo3:
-            self.resize_image(self.photo3.name, 800)
+            resize_image(self.photo3.name, 800)
 
         if self.photo4:
-            self.resize_image(self.photo4.name, 800)
-
-    @staticmethod
-    def resize_image(image_name, new_width):
-        image_path = os.path.join(settings.MEDIA_ROOT, image_name)
-        image = Image.open(image_path)
-        width, height = image.size
-        new_height = round((new_width * height) / width)
-
-        if width <= new_width:
-            image.close()
-            return
-
-        new_image = image.resize((new_width, new_height), Image.ANTIALIAS)
-        new_image.save(image_path, optimize=True, quality=60)
-        new_image.close()
+            resize_image(self.photo4.name, 800)
 
     class Meta:
         verbose_name = 'Item'

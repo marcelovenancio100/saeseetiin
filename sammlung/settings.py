@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'authentication',
     'user',
     'home',
+    'brand',
+    'model',
     'group',
     'situation',
     'collection',

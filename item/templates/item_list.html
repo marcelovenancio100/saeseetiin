@@ -50,8 +50,8 @@
         <td>{{ page_obj.start_index|add:forloop.counter0 }}</td>
         <td>{{ item.code }}</td>
         <td>{{ item.name }}</td>
-        <td>{{ item.brand }}</td>
-        <td>{{ item.model }}</td>
+        <td>{{ item.brand.name }}</td>
+        <td>{{ item.model.name }}</td>
         <td class="text-right" style="width: 90px;">
           <a href="{% url 'item:update' item.id %}"
              class="text-secondary"

@@ -8,6 +8,8 @@ urlpatterns = [
     path('', include('authentication.urls')),
     path('user/', include('user.urls')),
     path('home/', include('home.urls')),
+    path('brand/', include('brand.urls')),
+    path('model/', include('model.urls')),
     path('group/', include('group.urls')),
     path('situation/', include('situation.urls')),
     path('collection/', include('collection.urls')),

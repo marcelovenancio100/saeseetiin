@@ -2,10 +2,12 @@ from django.test import TestCase
 from django.db.utils import DataError, IntegrityError
 from django.utils import timezone
 from decimal import Decimal
-from datetime import datetime
+from datetime import date, datetime
 
 from .models import Item
 from collection.models import Collection
+from brand.models import Brand
+from model.models import Model
 from group.models import Group
 from situation.models import Situation
 
@@ -22,6 +24,25 @@ class ItemTest(TestCase):
             comments="comments001"
         )
 
+        self.brand = Brand.objects.create(
+            pk=1,
+            code='001',
+            name='name001',
+            description='description001',
+            foundation_local='foundation_local001',
+            foundation_date=date(2001, 1, 1),
+            founder='founder001',
+            main='main001',
+            billing='billing001'
+        )
+
+        self.model = Model.objects.create(
+            pk=1,
+            code='001',
+            name='name001',
+            description='description001'
+        )
+
         self.group = Group.objects.create(pk=1, code='001', name='name001', description='description001')
         self.situation = Situation.objects.create(pk=1, code='001', name='name001', description='description001')
 
@@ -31,8 +52,9 @@ class ItemTest(TestCase):
             code='001',
             name='name001',
             description='description001',
-            brand='brand001',
-            model='model001',
+            brand=self.brand,
+            model=self.model,
+            identifier_code='identifier_code001',
             serial_number='serial_number001',
             developer='developer001',
             distributor='distributor001',
@@ -70,10 +92,13 @@ class ItemTest(TestCase):
         self.assertEqual(self.item.description, 'description001')
 
     def test_item_attr_brand_equals(self):
-        self.assertEqual(self.item.brand, 'brand001')
+        self.assertEqual(self.item.brand, self.brand)
 
     def test_item_attr_model_equals(self):
-        self.assertEqual(self.item.model, 'model001')
+        self.assertEqual(self.item.model, self.model)
+
+    def test_item_attr_identifier_code_equals(self):
+        self.assertEqual(self.item.identifier_code, 'identifier_code001')
 
     def test_item_attr_serial_number_equals(self):
         self.assertEqual(self.item.serial_number, 'serial_number001')
@@ -138,11 +163,14 @@ class ItemTest(TestCase):
     def test_item_attr_description_must_be_string(self):
         self.assertIsInstance(self.item.description, str)
 
-    def test_item_attr_brand_must_be_string(self):
-        self.assertIsInstance(self.item.brand, str)
+    def test_item_attr_brand_must_be_object(self):
+        self.assertIsInstance(self.item.brand, object)
 
-    def test_item_attr_model_must_be_string(self):
-        self.assertIsInstance(self.item.model, str)
+    def test_item_attr_model_must_be_object(self):
+        self.assertIsInstance(self.item.model, object)
+
+    def test_item_attr_identifier_code_must_be_string(self):
+        self.assertIsInstance(self.item.identifier_code, str)
 
     def test_item_attr_serial_number_must_be_string(self):
         self.assertIsInstance(self.item.serial_number, str)
@@ -291,14 +319,9 @@ class ItemTest(TestCase):
             self.item.description = '1' * 256
             self.item.save()
 
-    def test_item_attr_brand_must_be_max_size_100(self):
+    def test_item_attr_identifier_code_must_be_max_size_100(self):
         with self.assertRaises(DataError):
-            self.item.brand = '1' * 101
-            self.item.save()
-
-    def test_item_attr_model_must_be_max_size_100(self):
-        with self.assertRaises(DataError):
-            self.item.model = '1' * 101
+            self.item.identifier_code = '1' * 101
             self.item.save()
 
     def test_item_attr_serial_number_must_be_max_size_100(self):
@@ -334,8 +357,9 @@ class ItemTest(TestCase):
                 code='test',
                 name='test',
                 description='test',
-                brand='test',
-                model='test',
+                brand=self.brand,
+                model=self.model,
+                identifier_code='test',
                 serial_number='test',
                 developer='test',
                 distributor='test',

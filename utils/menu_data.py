@@ -21,6 +21,40 @@ MENU_ITEMS = {
             }
         ]
     },
+    'brand': {
+        'name': 'Marca',
+        'route': '',
+        'icon': 'fa-solid fa-tag fa',
+        'childrens': [
+            {
+                'name': 'Listar Marcas',
+                'route': 'brand:list',
+                'icon': 'fa-solid fa-caret-right fa',
+            },
+            {
+                'name': 'Incluir Marca',
+                'route': 'brand:create',
+                'icon': 'fa-solid fa-caret-right fa',
+            }
+        ]
+    },
+    'model': {
+        'name': 'Modelo',
+        'route': '',
+        'icon': 'fa-solid fa-palette fa',
+        'childrens': [
+            {
+                'name': 'Listar Modelos',
+                'route': 'model:list',
+                'icon': 'fa-solid fa-caret-right fa',
+            },
+            {
+                'name': 'Incluir Modelo',
+                'route': 'model:create',
+                'icon': 'fa-solid fa-caret-right fa',
+            }
+        ]
+    },
     'group': {
         'name': 'Grupo',
         'route': '',

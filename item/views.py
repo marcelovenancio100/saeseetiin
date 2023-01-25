@@ -16,6 +16,11 @@ class List(LoginRequiredMixinCustom, ListView):
     paginate_by = 10
     ordering = ['-id']
 
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = Item.objects.select_related('collection', 'brand', 'model', 'group', 'situation')
+        return qs
+
 
 class Search(List):
     def get_queryset(self, *args, **kwargs):
@@ -29,8 +34,8 @@ class Search(List):
             Q(code__icontains=filter) |
             Q(name__icontains=filter) |
             Q(description__icontains=filter) |
-            Q(brand__icontains=filter) |
-            Q(model__icontains=filter))
+            Q(brand__name__icontains=filter) |
+            Q(model__name__icontains=filter))
         return qs
 
 
@@ -62,6 +67,11 @@ class Show(LoginRequiredMixinCustom, ListView):
     paginate_by = 3
     ordering = ['-id']
 
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = Item.objects.select_related('collection', 'brand', 'model')
+        return qs
+
 
 class ShowSearch(Show):
     def get_queryset(self, *args, **kwargs):
@@ -87,5 +97,5 @@ class Detail(LoginRequiredMixinCustom, DetailView):
 
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
-        qs = Item.objects.select_related('collection', 'group', 'situation')
+        qs = Item.objects.select_related('collection', 'brand', 'model', 'group', 'situation')
         return qs

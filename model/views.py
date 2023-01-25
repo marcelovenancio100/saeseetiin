@@ -39,7 +39,7 @@ class Create(LoginRequiredMixinCustom, SuccessMessageMixin, CreateView):
 class Update(LoginRequiredMixinCustom, SuccessMessageMixin, UpdateView):
     template_name = 'model_form.html'
     model = Model
-    fields = ['code', 'name', 'description', 'logo']
+    fields = ['code', 'name', 'description', 'specifications', 'logo']
     success_url = reverse_lazy('model:list')
     success_message = 'Modelo atualizado com sucesso.'
 

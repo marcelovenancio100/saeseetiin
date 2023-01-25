@@ -16,7 +16,7 @@ class Item(models.Model):
     description = models.CharField(verbose_name='Descrição', max_length=255)
     brand = models.ForeignKey(Brand, verbose_name='Marca', on_delete=models.CASCADE)
     model = models.ForeignKey(Model, verbose_name='Modelo', on_delete=models.CASCADE)
-    identifier_code = models.CharField(verbose_name='Código de identificação', max_length=100, blank=True, null=True)
+    identifier_code = models.CharField(verbose_name='Código identificador', max_length=100, blank=True, null=True)
     serial_number = models.CharField(verbose_name='Número de série', max_length=100, blank=True, null=True)
     developer = models.CharField(verbose_name='Desenvolvedor', max_length=100, blank=True, null=True)
     distributor = models.CharField(verbose_name='Distribuidor', max_length=100, blank=True, null=True)

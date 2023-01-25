@@ -61,47 +61,71 @@
     </div>
 
     <div class="row">
-      <div class="col-4">
+      <div class="col-6">
         <div class="jumbotron jumbotron-fluid pt-4 pb-4">
           <div class="container">
-            <h1 class="ml-4 mr-4 custom-display"><i class="fa-solid fa-caret-right fa"></i> {{ item.brand }}</h1>
+            <h1 class="ml-4 mr-4 custom-display">
+              {% if item.brand.logo %}<img src="{{ item.brand.logo.url }}" height="32" title="{{ item.brand }}"/>
+              {% else %}{{ item.brand }}{% endif %}
+            </h1>
             <hr class="my-4 ml-4 mr-4">
-            <p class="lead ml-4 mr-4"><b>Grupo: </b>{{ item.group.name }}</p>
-            <p class="lead ml-4 mr-4"><b>Número de série: </b>{% if item.serial_number %}{{ item.serial_number }}{% endif %}</p>
-            <p class="lead ml-4 mr-4"><b>Desenvolvedor: </b>{% if item.developer %}{{ item.developer }}{% endif %}</p>
-            <p class="lead ml-4 mr-4"><b>Distribuidor: </b>{% if item.distributor %}{{ item.distributor }}{% endif %}</p>
+            <p class="lead ml-4 mr-4">
+              <b>Grupo: </b>{{ item.group.name }}
+            </p>
+            <p class="lead ml-4 mr-4">
+              <b>Código identificador: </b>{% if item.identifier_code %}{{ item.identifier_code }}{% endif %}
+            </p>
+            <p class="lead ml-4 mr-4">
+              <b>Número de série: </b>{% if item.serial_number %}{{ item.serial_number }}{% endif %}
+            </p>
+            <p class="lead ml-4 mr-4">
+              <b>Desenvolvedor: </b>{% if item.developer %}{{ item.developer }}{% endif %}
+            </p>
+            <p class="lead ml-4 mr-4">
+              <b>Distribuidor: </b>{% if item.distributor %}{{ item.distributor }}{% endif %}
+            </p>
+            <p class="lead ml-4 mr-4">
+              <b>Ano de lançamento: </b>{% if item.release_year %}{{ item.release_year }}{% endif %}
+            </p>
+            <p class="lead ml-4 mr-4">
+              <b>Ano de fabricação: </b>{% if item.manufacture_year %}{{ item.manufacture_year }}{% endif %}
+            </p>
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-6">
         <div class="jumbotron jumbotron-fluid pt-4 pb-4">
           <div class="container">
-            <h1 class="ml-4 mr-4 custom-display"><i class="fa-solid fa-caret-right fa"></i> {{ item.model }}</h1>
+            <h1 class="ml-4 mr-4 custom-display">
+              {% if item.model.logo %}<img src="{{ item.model.logo.url }}" height="32" title="{{ item.model }}"/>
+              {% else %}{{ item.model }}{% endif %}
+            </h1>
             <hr class="my-4 ml-4 mr-4">
-            <p class="lead ml-4 mr-4"><b>Ano de lançamento: </b>{% if item.release_year %}{{ item.release_year }}{% endif %}</p>
-            <p class="lead ml-4 mr-4"><b>Ano de fabricação: </b>{% if item.manufacture_year %}{{ item.manufacture_year }}{% endif %}</p>
-            <p class="lead ml-4 mr-4"><b>Valor de mercado: </b>{{ item.market_value|currency }}</p>
-            <p class="lead ml-4 mr-4"><b>Valor de venda: </b>{{ item.sale_value|currency }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="jumbotron jumbotron-fluid pt-4 pb-4">
-          <div class="container">
-            <h1 class="ml-4 mr-4 custom-display"><i class="fa-solid fa-caret-right fa"></i> {{ item.situation.name }}</h1>
-            <hr class="my-4 ml-4 mr-4">
+            <p class="lead ml-4 mr-4"><b>Situação: </b>
+              {{ item.situation.name }}
+            </p>
+            <p class="lead ml-4 mr-4">
+              <b>Valor de mercado: </b>{{ item.market_value|currency }}
+            </p>
+            <p class="lead ml-4 mr-4">
+              <b>Valor de venda: </b>{{ item.sale_value|currency }}
+            </p>
             <p class="lead ml-4 mr-4"><b>É Original: </b>
               {% if item.original %}<i class="fa-solid fa-check fa"></i>
-              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}</p>
+              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}
+            </p>
             <p class="lead ml-4 mr-4"><b>Tem caixa: </b>
               {% if item.box %}<i class="fa-solid fa-check fa"></i>
-              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}</p>
+              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}
+            </p>
             <p class="lead ml-4 mr-4"><b>Caixa original: </b>
               {% if item.original_box %}<i class="fa-solid fa-check fa"></i>
-              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}</p>
+              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}
+            </p>
             <p class="lead ml-4 mr-4"><b>É negociável: </b>
               {% if item.negotiable %}<i class="fa-solid fa-check fa"></i>
-              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}</p>
+              {% else %}<i class="fa-solid fa-times fa"></i>{% endif %}
+            </p>
           </div>
         </div>
       </div>
@@ -110,32 +134,32 @@
     <div class="row mt-4">
       <div class="col-sm-12">
         <p class="lead ml-4 mr-4"><b>Especificações: </b></br>
-          {% if item.specifications %}{{ item.specifications }}
-          {% else %}- NÃO INFORMADO -{% endif %}</p>
+          {{ item.specifications }}
+        </p>
       </div>
-    </div>
+    </div><hr>
 
     <div class="row mt-4">
       <div class="col-sm-12">
         <p class="lead ml-4 mr-4"><b>Composição: </b></br>
-          {% if item.composition %}{{ item.composition }}
-          {% else %}- NÃO INFORMADO -{% endif %}</p>
+          {{ item.composition }}
+        </p>
       </div>
-    </div>
+    </div><hr>
 
     <div class="row mt-4">
       <div class="col-sm-12">
         <p class="lead ml-4 mr-4"><b>Avarias: </b></br>
-          {% if item.damages %}{{ item.damages }}
-          {% else %}- NÃO INFORMADO -{% endif %}</p>
+          {{ item.damages }}
+        </p>
       </div>
-    </div>
+    </div><hr>
 
     <div class="row mt-4">
       <div class="col-sm-12">
         <p class="lead ml-4 mr-4"><b>Observações: </b></br>
-          {% if item.comments %}{{ item.comments }}
-          {% else %}- NÃO INFORMADO -{% endif %}</p>
+          {{ item.comments }}
+        </p>
       </div>
     </div>
   </div>
@@ -143,7 +167,7 @@
   <div class="card-footer">
     <div class="text-right">
       <a href="{% url 'item:update' item.id %}" class="btn btn-primary">Editar</a>
-      <a href="{% url 'item:show' %}" class="btn btn-primary">Voltar</a>
+      <a href="{% url 'item:show' %}" class="btn btn-secondary">Voltar</a>
     </div>
   </div>
 </div>
